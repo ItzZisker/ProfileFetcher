@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+    id 'io.freefair.lombok' version "8.0.1"
+}
+
+group = 'me.kallix.skinfetcher'
+version = '1.0-BETA'
+
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.inventivetalent.org/repository/public/' }
+}
+
+dependencies {
+    implementation 'org.mineskin:java-client:1.2.4-SNAPSHOT'
+}
+
+shadowJar {
+    archiveClassifier.set("")
+}
+
+test {
+    useJUnitPlatform()
+}

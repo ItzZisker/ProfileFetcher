@@ -1,2 +1,2 @@
-# SkinFetcher
+# ProfileFetcher
 Profile fetching API

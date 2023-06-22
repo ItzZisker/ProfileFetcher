@@ -2,6 +2,7 @@ package me.kallix.skinfetcher.server.functions.impl;
 
 import lombok.RequiredArgsConstructor;
 import me.kallix.skinfetcher.server.functions.RequestFunction;
+import me.kallix.skinfetcher.server.functions.exceptions.MojangErrorResponse;
 import me.kallix.skinfetcher.textures.Textures;
 import me.kallix.skinfetcher.utils.NetUtils;
 import org.mineskin.com.google.gson.Gson;
@@ -21,8 +22,12 @@ public final class FunctionMojangProfile implements RequestFunction<UUID, Textur
     public Textures apply(UUID uuid) throws Exception {
 
         byte[] body = NetUtils.httpGET(String.format(url, uuid.toString()), (int) timeOut);
-
         Map<?, ?> map = new Gson().fromJson(new String(body), Map.class);
+
+        if (map.get("error") != null) {
+            throw new MojangErrorResponse((String) map.get("error"));
+        }
+
         Map<String, String> properties = ((List<Map<String, String>>) map.get("properties")).get(0);
 
         if (properties != null && !properties.isEmpty()) {

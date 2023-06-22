@@ -22,11 +22,6 @@ public final class APIRegistry {
     @SuppressWarnings("unchecked")
     public <T, R> Optional<RequestHandler<T, R>> get(RequestType type, int index) {
         List<RequestHandler<?, ?>> servers = byType.getOrDefault(type, Collections.emptyList());
-
-        if (index < servers.size()) {
-            return Optional.of((RequestHandler<T, R>) servers.get(index));
-        } else {
-            return Optional.empty();
-        }
+        return index < servers.size() ? Optional.of((RequestHandler<T, R>) servers.get(index)) : Optional.empty();
     }
 }

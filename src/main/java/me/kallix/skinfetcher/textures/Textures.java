@@ -1,23 +1,21 @@
 package me.kallix.skinfetcher.textures;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 public final class Textures {
 
-    @Getter
-    private final Texture[] all;
+    public final Texture[] data;
 
-    public Textures(Texture... all) {
-        this.all = all;
+    public Textures(Texture... data) {
+        this.data = data;
     }
 
     public Textures(int size) {
-        this.all = new Texture[size];
+        this.data = new Texture[size];
     }
 
     public Texture getMain() {
-        return all[0];
+        return data[0];
     }
 
     @RequiredArgsConstructor

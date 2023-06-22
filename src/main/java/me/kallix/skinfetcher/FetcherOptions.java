@@ -2,6 +2,9 @@ package me.kallix.skinfetcher;
 
 import lombok.Getter;
 import me.kallix.skinfetcher.server.RequestHandler;
+import me.kallix.skinfetcher.server.RequestType;
+import me.kallix.skinfetcher.server.functions.impl.*;
+import org.mineskin.MineskinClient;
 
 import java.time.Duration;
 import java.util.HashSet;
@@ -12,11 +15,9 @@ import java.util.concurrent.Executors;
 @Getter
 public final class FetcherOptions {
 
-    private final Set<RequestHandler<?, ?>> servers = new HashSet<>();
+    private final Set<RequestHandler<?, ?>> requesters = new HashSet<>();
 
     private Executor requestExecutor;
-    private Duration timeout;
-    private String mineSkinAgent;
     private boolean ignoreErrors;
 
     public static FetcherOptions create() {
@@ -24,15 +25,27 @@ public final class FetcherOptions {
     }
 
     public static FetcherOptions defaults() {
-        Duration timeOut = Duration.ofSeconds(5);
         return FetcherOptions.create()
-                .setMineSkinAgent("ProfileFetcher Agent")
                 .setRequestExecutor(Executors.newSingleThreadExecutor())
-                .setTimeOut(timeOut);
+                .withDefaultRequesters(Duration.ofSeconds(5))
+                .shouldIgnoreErrors(true);
     }
 
-    public <T, R> FetcherOptions addRequester(RequestHandler<T, R> server) {
-        this.servers.add(server);
+    public FetcherOptions withDefaultRequesters(Duration timeout) {
+        long timeoutMillis = timeout.toMillis();
+
+        register(new RequestHandler<>(RequestType.USERNAME_TO_UUID, new FunctionMojangUUID("https://api.mojang.com/users/profiles/minecraft/%s", timeoutMillis), 1000));
+        register(new RequestHandler<>(RequestType.USERNAME_TO_UUID, new FunctionMineToolsUUID("https://api.mojang.com/users/profiles/minecraft/%s", timeoutMillis), 900));
+        register(new RequestHandler<>(RequestType.UUID_TO_PROFILE, new FunctionMojangProfile("https://sessionserver.mojang.com/session/minecraft/profile/%s?unsigned=false", timeoutMillis), 1000));
+        register(new RequestHandler<>(RequestType.UUID_TO_PROFILE, new FunctionMineToolsProfile("https://api.minetools.eu/profile/%s", timeoutMillis), 900));
+        register(new RequestHandler<>(RequestType.UUID_TO_PROFILE, new FunctionAshconProfile("https://api.ashcon.app/mojang/v2/user/%s", timeoutMillis), 800));
+        register(new RequestHandler<>(RequestType.USERNAME_TO_PROFILE, new FunctionAshconProfile("https://api.ashcon.app/mojang/v2/user/%s", timeoutMillis), 1000));
+        register(new RequestHandler<>(RequestType.URL_TO_PROFILE, new FunctionMineSkinProfile(new MineskinClient("ProfileFetcher")), 1000));
+        return this;
+    }
+
+    public <T, R> FetcherOptions register(RequestHandler<T, R> requester) {
+        this.requesters.add(requester);
         return this;
     }
 
@@ -40,17 +53,7 @@ public final class FetcherOptions {
         this.requestExecutor = executor;
         return this;
     }
-
-    public FetcherOptions setMineSkinAgent(String agent) {
-        this.mineSkinAgent = agent;
-        return this;
-    }
     
-    public FetcherOptions setTimeOut(Duration duration) {
-        this.timeout = duration;
-        return this;
-    }
-
     public FetcherOptions shouldIgnoreErrors(boolean value) {
         this.ignoreErrors = value;
         return this;

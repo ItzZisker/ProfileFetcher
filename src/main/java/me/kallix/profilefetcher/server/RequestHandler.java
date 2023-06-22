@@ -1,8 +1,8 @@
-package me.kallix.skinfetcher.server;
+package me.kallix.profilefetcher.server;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.kallix.skinfetcher.server.functions.RequestFunction;
+import me.kallix.profilefetcher.server.functions.RequestFunction;
 
 @RequiredArgsConstructor
 @Getter

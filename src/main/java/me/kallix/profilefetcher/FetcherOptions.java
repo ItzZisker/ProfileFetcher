@@ -1,9 +1,9 @@
-package me.kallix.skinfetcher;
+package me.kallix.profilefetcher;
 
 import lombok.Getter;
-import me.kallix.skinfetcher.server.RequestHandler;
-import me.kallix.skinfetcher.server.RequestType;
-import me.kallix.skinfetcher.server.functions.impl.*;
+import me.kallix.profilefetcher.server.RequestHandler;
+import me.kallix.profilefetcher.server.RequestType;
+import me.kallix.profilefetcher.server.functions.impl.*;
 import org.mineskin.MineskinClient;
 
 import java.time.Duration;

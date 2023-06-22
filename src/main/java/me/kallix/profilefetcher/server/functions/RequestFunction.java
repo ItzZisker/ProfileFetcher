@@ -1,4 +1,4 @@
-package me.kallix.skinfetcher.server.functions;
+package me.kallix.profilefetcher.server.functions;
 
 @FunctionalInterface
 public interface RequestFunction<T, R> {

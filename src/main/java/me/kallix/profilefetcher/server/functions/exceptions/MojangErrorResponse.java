@@ -1,4 +1,4 @@
-package me.kallix.skinfetcher.server.functions.exceptions;
+package me.kallix.profilefetcher.server.functions.exceptions;
 
 public final class MojangErrorResponse extends Exception {
     public MojangErrorResponse(String reason) {

@@ -1,4 +1,4 @@
-package me.kallix.skinfetcher.textures;
+package me.kallix.profilefetcher.textures;
 
 import lombok.RequiredArgsConstructor;
 

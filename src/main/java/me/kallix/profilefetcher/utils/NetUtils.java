@@ -1,4 +1,4 @@
-package me.kallix.skinfetcher.utils;
+package me.kallix.profilefetcher.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

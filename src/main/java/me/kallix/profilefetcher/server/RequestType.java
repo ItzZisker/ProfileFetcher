@@ -1,6 +1,6 @@
-package me.kallix.skinfetcher.server;
+package me.kallix.profilefetcher.server;
 
-import me.kallix.skinfetcher.textures.Textures;
+import me.kallix.profilefetcher.textures.Textures;
 
 import java.net.URL;
 import java.util.UUID;

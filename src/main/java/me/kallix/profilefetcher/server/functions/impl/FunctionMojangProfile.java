@@ -1,10 +1,10 @@
-package me.kallix.skinfetcher.server.functions.impl;
+package me.kallix.profilefetcher.server.functions.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.kallix.skinfetcher.server.functions.RequestFunction;
-import me.kallix.skinfetcher.server.functions.exceptions.MojangErrorResponse;
-import me.kallix.skinfetcher.textures.Textures;
-import me.kallix.skinfetcher.utils.NetUtils;
+import me.kallix.profilefetcher.server.functions.RequestFunction;
+import me.kallix.profilefetcher.server.functions.exceptions.MojangErrorResponse;
+import me.kallix.profilefetcher.textures.Textures;
+import me.kallix.profilefetcher.utils.NetUtils;
 import org.mineskin.com.google.gson.Gson;
 
 import java.util.List;

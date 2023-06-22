@@ -1,4 +1,4 @@
-package me.kallix.skinfetcher.server;
+package me.kallix.profilefetcher.server;
 
 import org.mineskin.com.google.common.collect.Lists;
 

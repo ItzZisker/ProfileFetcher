@@ -4,7 +4,7 @@ plugins {
     id 'io.freefair.lombok' version "8.0.1"
 }
 
-group = 'me.kallix.skinfetcher'
+group = 'me.kallix.profilefetcher'
 version = '1.0-BETA'
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8

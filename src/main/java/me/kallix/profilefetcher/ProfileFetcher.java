@@ -1,10 +1,10 @@
-package me.kallix.skinfetcher;
+package me.kallix.profilefetcher;
 
-import me.kallix.skinfetcher.server.APIRegistry;
-import me.kallix.skinfetcher.server.RequestHandler;
-import me.kallix.skinfetcher.server.RequestType;
-import me.kallix.skinfetcher.textures.Textures;
-import me.kallix.skinfetcher.utils.Validate;
+import me.kallix.profilefetcher.server.APIRegistry;
+import me.kallix.profilefetcher.server.RequestHandler;
+import me.kallix.profilefetcher.server.RequestType;
+import me.kallix.profilefetcher.textures.Textures;
+import me.kallix.profilefetcher.utils.Validate;
 
 import java.net.URL;
 import java.util.UUID;

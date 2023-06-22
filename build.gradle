@@ -23,6 +23,10 @@ shadowJar {
     archiveClassifier.set("")
 }
 
+build {
+    dependsOn(shadowJar)
+}
+
 test {
     useJUnitPlatform()
 }

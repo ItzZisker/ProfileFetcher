@@ -1,5 +1,5 @@
 # ProfileFetcher
-A tool which designed to easily fetch profile data from web-API(s) and use it in your Minecraft projects (BungeeCord, Velocity, Spigot, PaperSpigot, etc.)
+A tool which is designed to easily fetch profile data from web-API(s) and use it in your Minecraft projects (BungeeCord, Velocity, Spigot, PaperSpigot, etc.)
 
 ## API Usage
 First we need to declare an instance of ProfileFetcher somewhere in order to use its functions (becareful, don't call that each time because of performance cost, it is designed to declared once).

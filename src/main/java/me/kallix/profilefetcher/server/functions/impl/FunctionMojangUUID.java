@@ -25,7 +25,9 @@ public final class FunctionMojangUUID implements RequestFunction<String, UUID> {
         if (map.get("error") != null) {
             throw new MojangErrorResponse((String) map.get("error"));
         } else {
-            return UUID.fromString((String) map.get("id"));
+            return UUID.fromString(((String) map.get("id")).replaceAll(
+                    "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})",
+                    "$1-$2-$3-$4-$5"));
         }
     }
 }

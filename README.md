@@ -1,6 +1,19 @@
 # ProfileFetcher
 A tool which is designed to easily fetch profile data from web-API(s) and use it in your Minecraft projects (BungeeCord, Velocity, Spigot, PaperSpigot, etc.)
 
+## Add to your project
+You can use jitpack to add this library to your project:
+
+Gradle:
+```Groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    implementation 'com.github.ItzZisker:ProfileFetcher:VERSION'
+}
+```
+
 ## API Usage
 First we need to declare an instance of ProfileFetcher somewhere in order to use its functions (becareful, don't call that each time because of performance cost, it is designed to declared once).
 ```java

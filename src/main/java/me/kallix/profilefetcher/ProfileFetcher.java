@@ -40,42 +40,56 @@ public final class ProfileFetcher {
     }
 
     public CompletableFuture<Textures> fetchTexturesAsync(URL customURL) {
-        return CompletableFuture.supplyAsync(() -> fetchTexturesSync(customURL), requestExecutor);
+        return fetchAsync(customURL, Textures.class);
     }
 
     public CompletableFuture<Textures> fetchTexturesAsync(String name) {
-        return CompletableFuture.supplyAsync(() -> fetchTexturesSync(name), requestExecutor);
+        return fetchAsync(name, Textures.class);
     }
 
     public CompletableFuture<Textures> fetchTexturesAsync(UUID uuid) {
-        return CompletableFuture.supplyAsync(() -> fetchTexturesSync(uuid), requestExecutor);
+        return fetchAsync(uuid, Textures.class);
     }
 
     public CompletableFuture<UUID> fetchUUIDAsync(String username) {
-        return CompletableFuture.supplyAsync(() -> fetchUUIDSync(username), requestExecutor);
+        return fetchAsync(username, UUID.class);
     }
 
-    public Textures fetchTexturesSync(String username) {
-        Textures textures = fetchSync(username, Textures.class);
-        return textures != null ? textures : fetchTexturesSync(fetchUUIDSync(username));
+    public Textures fetchTexturesSync(String username) throws Exception {
+        return fetchSync(username, Textures.class);
     }
 
-    public Textures fetchTexturesSync(URL url) {
+    public Textures fetchTexturesSync(URL url) throws Exception {
         return fetchSync(url, Textures.class);
     }
 
-    public Textures fetchTexturesSync(UUID uuid) {
+    public Textures fetchTexturesSync(UUID uuid) throws Exception {
         return fetchSync(uuid, Textures.class);
     }
 
-    public UUID fetchUUIDSync(String username) {
+    public UUID fetchUUIDSync(String username) throws Exception {
         return fetchSync(username, UUID.class);
     }
 
-    private <T, R> R fetchSync(T from, Class<R> retType) {
+    private <T, R> CompletableFuture<R> fetchAsync(T from, Class<R> retType) {
+
+        CompletableFuture<R> future = new CompletableFuture<>();
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                future.complete(fetchSync(from, retType));
+            } catch (Exception e) {
+                future.completeExceptionally(e);
+            }
+        }, requestExecutor);
+
+        return future;
+    }
+
+    private <T, R> R fetchSync(T from, Class<R> retType) throws Exception {
         R result = null;
 
-        for (int i = 0;; i++) {
+        for (int i = 0; ; i++) {
             RequestHandler<T, R> server = apiRegistry.<T, R>get(RequestType.byGeneric(from.getClass(), retType), i).orElse(null);
             try {
                 if (server == null || (result = server.getFunction().apply(from)) != null) {
@@ -83,7 +97,7 @@ public final class ProfileFetcher {
                 }
             } catch (Throwable e) {
                 if (!ignoreErrors) {
-                    throw new RuntimeException(e);
+                    throw e;
                 }
             }
         }

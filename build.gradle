@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'me.kallix.profilefetcher'
-version = '1.0-BETA'
+version = '1.0.2-BETA'
 
 java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11

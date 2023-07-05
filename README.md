@@ -4,11 +4,15 @@ A tool which is designed to easily fetch profile data from web-API(s) and use it
 ## Add to your project
 You can use jitpack to add this library to your project:
 
-Gradle:
+### Gradle:
+Add jitpack to your repositories:
 ```Groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
+```
+Add it as implementation and include it in your jar as a standalone library:
+```Groovy
 dependencies {
     implementation 'com.github.ItzZisker:ProfileFetcher:VERSION'
 }
